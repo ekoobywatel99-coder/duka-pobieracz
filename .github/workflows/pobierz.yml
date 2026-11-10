@@ -13,8 +13,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: curl -s https://ifconfig.me; echo
       - run: python3 tools/pc_duka_raw.py work ${{ inputs.symbol }} --od=${{ inputs.od }} --do=${{ inputs.do }} --watki=4
-      - run: find work/chunks -type f | wc -l; du -sh work
-      - uses: actions/upload-artifact@v4
+      - if: always()
+        run: find work/chunks -type f | wc -l; du -sh work
+      - if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.symbol }}_${{ inputs.od }}_${{ inputs.do }}
           path: work/chunks
