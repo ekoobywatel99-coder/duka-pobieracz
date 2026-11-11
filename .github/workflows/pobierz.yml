@@ -5,9 +5,13 @@ on:
       symbol: {description: symbol, default: USATECHIDXUSD}
       od: {description: od RRRR-MM, default: "2024-01"}
       do: {description: do RRRR-MM, default: "2024-01"}
+      os: {description: runner, default: ubuntu-latest}
 jobs:
   pobierz:
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.os }}
+    defaults:
+      run:
+        shell: bash
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
